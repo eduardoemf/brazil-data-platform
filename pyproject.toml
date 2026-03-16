@@ -1,0 +1,18 @@
+[project]
+name = "brazil-data-platform"
+version = "0.1.0"
+description = "End-to-end data platform that ingests Brazilian public APIs and builds analytics-ready datasets using Python, PostgreSQL and DBT."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dbt-core>=1.11.7",
+    "dbt-postgres>=1.10.0",
+    "duckdb>=1.5.0",
+    "ipykernel>=7.2.0",
+    "numpy>=2.4.3",
+    "pandas>=3.0.1",
+    "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.2.2",
+    "requests>=2.32.5",
+    "sqlalchemy>=2.0.48",
+]

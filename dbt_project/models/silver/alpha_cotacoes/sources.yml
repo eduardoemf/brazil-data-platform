@@ -3,5 +3,33 @@ version: 2
 sources:
   - name: landing_zone
     schema: landing_zone
+    description: >
+      Camada de ingestão contendo dados brutos provenientes da API Alpha Vantage.
+      Os dados podem conter inconsistências de tipo, formatação e valores faltantes.
+    
     tables:
       - name: stock_prices_daily
+        description: >
+            Tabela com cotações diárias de ativos financeiros em formato bruto,
+            sem tratamento ou validação de qualidade.
+        columns:
+          - name: symbol
+            description: "Ticker do ativo conforme retornado pela API"
+
+          - name: date
+            description: "Data da cotação em formato string (YYYY-MM-DD)"
+
+          - name: open
+            description: "Preço de abertura (string na origem)"
+
+          - name: high
+            description: "Maior preço do dia (string na origem)"
+
+          - name: low
+            description: "Menor preço do dia (string na origem)"
+
+          - name: close
+            description: "Preço de fechamento (string na origem)"
+
+          - name: volume
+            description: "Volume negociado (string na origem)"

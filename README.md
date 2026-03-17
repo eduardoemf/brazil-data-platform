@@ -49,3 +49,4 @@ See `pyproject.toml` for full dependency list.
 ## Documentações APIs utilizadas
 
 - https://www.alphavantage.co/documentation/ 
+- https://brapi.dev/docs

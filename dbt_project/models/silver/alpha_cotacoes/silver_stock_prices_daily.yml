@@ -1,0 +1,95 @@
+version: 2
+
+models:
+  - name: silver_stock_prices_daily
+    description: >
+      Tabela de preços diários de ativos financeiros com tipagem e padronização
+      aplicada sobre os dados brutos da landing_zone.
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - symbol
+              - date
+
+      # Regras de negócio
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "date <= current_date"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "open_price > 0"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "high_price > 0"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "low_price > 0"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "close_price > 0"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "volume >= 0"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "high_price >= low_price"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "high_price >= open_price"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "high_price >= close_price"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "low_price <= open_price"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "low_price <= close_price"
+
+    columns:
+      - name: symbol
+        description: "Código do ativo (ticker)"
+        tests:
+          - not_null
+
+      - name: date
+        description: "Data do pregão no formato YYYY-MM-DD"
+        tests:
+          - not_null
+
+      - name: open_price
+        description: "Preço de abertura do ativo no dia"
+        tests:
+          - not_null
+
+      - name: high_price
+        description: "Maior preço do ativo no dia"
+        tests:
+          - not_null
+
+      - name: low_price
+        description: "Menor preço do ativo no dia"
+        tests:
+          - not_null
+
+      - name: close_price
+        description: "Preço de fechamento do ativo no dia"
+        tests:
+          - not_null
+
+      - name: volume
+        description: "Volume negociado no dia"
+        tests:
+          - not_null

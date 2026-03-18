@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: gold_daily_returns
+    description: >
+      Retornos diários e acumulados por ativo, enriquecidos com país de origem.
+      Base para volatilidade, Sharpe ratio, drawdown e métricas avançadas na camada gold.
+
+    config:
+      tags: ['mercado_acoes', 'daily']
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - symbol
+              - date
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "close_price >= 0"
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "daily_return > -1"
+
+      # opcional: monitoramento mais flexível (não bloqueante)
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "daily_return < 5"
+
+    columns:
+      - name: symbol
+        description: "Ticker do ativo (ex: AAPL, MSFT)"
+        tests:
+          - not_null
+
+      - name: country
+        description: "País de listagem (join com silver_symbol_countries)"
+        tests:
+          - not_null
+
+      - name: date
+        description: "Data de negociação"
+        tests:
+          - not_null
+
+      - name: open_price
+        description: "Preço de abertura do ativo no dia"
+        tests:
+          - not_null
+
+      - name: high_price
+        description: "Maior preço do ativo no dia"
+        tests:
+          - not_null
+
+      - name: low_price
+        description: "Menor preço do ativo no dia"
+        tests:
+          - not_null
+
+      - name: close_price
+        description: "Preço de fechamento ajustado"
+        tests:
+          - not_null
+
+      - name: volume
+        description: "Volume negociado no dia"
+        tests:
+          - not_null
+
+      - name: daily_return
+        description: "Retorno aritmético diário — (close_t / close_t-1) - 1"
+        tests:
+          - not_null
+
+      - name: log_return
+        description: "Retorno logarítmico diário — ln(close_t / close_t-1)"
+
+      - name: intraday_range
+        description: "Variação intraday do valor diário das ações"
+
+      - name: cumulative_return
+        description: "Retorno acumulado desde o primeiro registro do símbolo"
+
+      - name: rolling_30d_return
+        description: "Retorno acumulado dos últimos 30 dias úteis"
+
+      - name: rolling_365d_return
+        description: "Retorno acumulado dos últimos 365 dias"

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: symbol_countries
+  - name: silver__symbol_countries
     description: >
       Tabela com a sigla dos países de origem dos ativos analisados
 

@@ -59,6 +59,29 @@ finance-data-platform/
 - Docker & Docker Compose
 - uv (or pip)
 
+### Enviroments
+```bash
+# Create virtual environment with uv
+uv venv
+
+# Activate (Linux/macOS)
+source .venv/bin/activate
+
+# Activate (Windows)
+.venv\Scripts\activate
+```
+
+.env file:
+```bash
+ALPHA_API_KEY=""
+
+DB_USER=""
+DB_PASSWORD=""
+DB_HOST=""
+DB_PORT=""
+DB_NAME=""
+```
+
 ### Installation
 
 ```bash
@@ -136,18 +159,21 @@ Aggregated, business-ready analytics tables optimized for reporting and decision
 ## 📝 Development
 
 ```bash
-# Format SQL
-sqlfluff format dbt_project/
-
-# Lint & validate
-sqlfluff lint dbt_project/models/
+# Initial test dbt connection
+dbt debug
 
 # Run data quality tests
 dbt test
 
+# Run dbt transform
+dbt run
+
 # Generate documentation
 dbt docs generate
+
+# Serve documentation locally
 dbt docs serve --port 8081
+
 ```
 
 ## 📮 Contact

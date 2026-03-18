@@ -6,9 +6,19 @@ sources:
     description: >
       Camada de ingestão contendo dados brutos provenientes da API Alpha Vantage.
       Os dados podem conter inconsistências de tipo, formatação e valores faltantes.
+      A chave lógica da tabela é composta pela combinação de (symbol, date).
     
     tables:
-      - name: stock_prices_daily
+      - name: csv_symbol_countries
+        description: >
+            Tabela estática com os países de origem dos ativos analisados.
+        columns:
+          - name: symbol
+            description: "Ticker do ativo conforme retornado pela API"
+          - name: country
+            description: "País do ativo analisado"
+      # --------------------------- #
+      - name: alphavantage_stock_prices_daily
         description: >
             Tabela com cotações diárias de ativos financeiros em formato bruto,
             sem tratamento ou validação de qualidade.

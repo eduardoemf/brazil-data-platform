@@ -42,7 +42,7 @@ def _get_existing_records() -> pd.DataFrame:
     """
     query = """
         SELECT DISTINCT date, symbol
-        FROM landing_zone.stock_prices_daily
+        FROM landing_zone.alphavantage_stock_prices_daily
         ORDER BY date DESC
         LIMIT 100
     """
@@ -132,7 +132,7 @@ def stock_prices_daily(symbols: List[str] | None = None) -> None:
 
         ingest_dataframe(
             df=df_new,
-            table_name="stock_prices_daily",
+            table_name="alphavantage_stock_prices_daily",
             schema="landing_zone",
             if_exists="append",
         )

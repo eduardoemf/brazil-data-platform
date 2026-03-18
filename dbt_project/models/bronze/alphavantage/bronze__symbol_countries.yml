@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: bronze__symbol_countries
+    description: >
+      Tabela com a sigla dos países de origem dos ativos analisados
+
+    constraints:
+      - type: primary_key
+        columns: [symbol, country]
+
+    columns:
+      - name: symbol
+        description: "Código do ativo (ticker)"
+        tests:
+          - not_null
+
+      - name: country
+        description: "Sigla do país de origem"
+        tests:
+          - not_null

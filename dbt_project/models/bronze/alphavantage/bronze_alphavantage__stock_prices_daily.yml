@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: bronze_alphavantage__stock_prices_daily
+    description: >
+      Tabela de preços diários de ativos financeiros obtidos dos dados brutos da landing_zone.
+      A chave primária da tabela é garantida pela combinação de (symbol, date).
+
+    constraints:
+      - type: primary_key
+        columns: [symbol, date]
+
+    columns:
+      - name: symbol
+        description: "Código do ativo (ticker)"
+        tests:
+          - not_null
+
+      - name: date
+        description: "Data do pregão no formato YYYY-MM-DD"
+        tests:
+          - not_null
+
+      - name: open
+        description: "Preço de abertura do ativo no dia"
+        tests:
+          - not_null
+
+      - name: high
+        description: "Maior preço do ativo no dia"
+        tests:
+          - not_null
+
+      - name: low
+        description: "Menor preço do ativo no dia"
+        tests:
+          - not_null
+
+      - name: close
+        description: "Preço de fechamento do ativo no dia"
+        tests:
+          - not_null
+
+      - name: volume
+        description: "Volume negociado no dia"
+        tests:
+          - not_null

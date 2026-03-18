@@ -9,7 +9,7 @@ WITH source AS (
         low AS low_price,
         close AS close_price,
         volume
-    FROM {{ source('landing_zone', 'stock_prices_daily') }}
+    FROM {{ ref('bronze_alphavantage__stock_prices_daily') }}
 
 ),
 
@@ -28,4 +28,10 @@ typed AS (
 )
 
 -- LOAD
-SELECT * FROM typed ORDER BY symbol, date
+SELECT 
+    * 
+FROM 
+    typed 
+ORDER BY 
+    symbol, 
+    date

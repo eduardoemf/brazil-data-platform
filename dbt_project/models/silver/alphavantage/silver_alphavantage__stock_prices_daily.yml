@@ -1,10 +1,12 @@
 version: 2
 
 models:
-  - name: silver_stock_prices_daily
+  - name: silver_alphavantage__stock_prices_daily
     description: >
       Tabela de preços diários de ativos financeiros com tipagem e padronização
-      aplicada sobre os dados brutos da landing_zone.
+      aplicada sobre os dados brutos da landing_zone. 
+      A chave primária da tabela é garantida pela combinação de (symbol, date).
+      (`bronze.bronze_alphavantage__stock_prices_daily`).
 
     tests:
       - dbt_utils.unique_combination_of_columns:
@@ -57,6 +59,10 @@ models:
       - dbt_utils.expression_is_true:
           arguments:
             expression: "low_price <= close_price"
+
+    constraints:
+      - type: primary_key
+        columns: [symbol, date]
 
     columns:
       - name: symbol
